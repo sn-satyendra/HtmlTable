@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ButtonWrapper = styled.button`
 	border-radius: 8px;
@@ -10,8 +11,24 @@ const ButtonWrapper = styled.button`
 	outline: none;
 `;
 
-function Button(props) {
-	return <ButtonWrapper {...props}>{props.children}</ButtonWrapper>;
-}
+export default class Button extends PureComponent {
+  static propTypes = {
+    /**
+		 * Children of the button.
+		 */
+    children: PropTypes.any,
 
-export default Button;
+    /**
+		 * Theme to be used for the button.
+		 */
+    theme: PropTypes.oneOf(['light', 'dark'])
+  };
+
+  static defaultProps = {
+    theme: 'light'
+  };
+
+  render() {
+    return <ButtonWrapper {...this.props}>{this.props.children}</ButtonWrapper>;
+  }
+}
