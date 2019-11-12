@@ -134,6 +134,11 @@ HtmlTable.propTypes = {
   pageSize: PropTypes.number,
 
   /**
+   * Total number of records
+   */
+  total: PropTypes.number,
+
+  /**
    * Function to be invoked when sorting is done.
    */
   onSort: PropTypes.func,
