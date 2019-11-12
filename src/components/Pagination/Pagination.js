@@ -1,15 +1,43 @@
 import React, {PureComponent} from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-// const PaginationWrapper = styled.table`
-// 	border-radius: 8px;
-// 	color: #fff;
-// 	background: green;
-// 	padding: 8px 15px;
-// 	border: none;
-// 	outline: none;
-// `;
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledButton = styled.button`
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-image: none;
+  color: #000;
+  background-color: #f5f5f5;
+  border-color: #efefef;
+  min-width: 45px;
+  margin: 5px;
+`;
+
+const StyledPageIndicator = styled.div`
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen","Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  padding: 10px;
+  text-align: center;
+  span {
+    font-weight: bold;
+  }
+`;
 
 class Pagination extends PureComponent {
   onPageChange = pageNo => {
@@ -48,15 +76,17 @@ class Pagination extends PureComponent {
     const from = pageNo * pageSize;
     const to = (pageNo * pageSize) + pageSize;
     return (
-      <div>
-        <button title="First" onClick={this.onFirst}>&lt;&lt;</button>
-        <button title="Previous" onClick={this.onPrev}>&lt;</button>
-        <button title="Next" onClick={this.onNext}>&gt;</button>
-        <button title="Last" onClick={this.onLast}>&gt;&gt;</button>
+      <StyledContainer>
         <div>
-          {from} to {to} of {total}
+          <StyledButton title="First" onClick={this.onFirst}>&lt;&lt;</StyledButton>
+          <StyledButton title="Previous" onClick={this.onPrev}>&lt;</StyledButton>
+          <StyledButton title="Next" onClick={this.onNext}>&gt;</StyledButton>
+          <StyledButton title="Last" onClick={this.onLast}>&gt;&gt;</StyledButton>
         </div>
-      </div>
+        <StyledPageIndicator>
+          <span>{from}</span> to <span>{to}</span> of <span>{total}</span>
+        </StyledPageIndicator>
+      </StyledContainer>
     );
   }
 }

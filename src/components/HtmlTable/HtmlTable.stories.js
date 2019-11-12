@@ -32,4 +32,7 @@ export const defaultView = () => <HtmlTable
       { sid: 6, name: 'ort', location: 'Bengaluru', phone: 65352 },
       { sid: 7, name: 'ghk', location: 'Pune', phone: 432141 }
     ]}
+  total={7}
+  pageNo={1}
+  pageSize={3}
 />;
