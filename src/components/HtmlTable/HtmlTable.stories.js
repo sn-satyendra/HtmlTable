@@ -48,5 +48,5 @@ export const defaultView = () => <HtmlTable
     ]}
   total={21}
   pageNo={1}
-  pageSize={3}
+  pageSize={10}
 />;

@@ -72,12 +72,19 @@ class HtmlTable extends Component {
       pageNo={pageNo}
       pageSize={pageSize}
       onPageChange={this.onPageChange}
+      onPageSizeChange={this.onPageSizeChange}
     />;
   };
 
   onPageChange = pageNo => {
     this.setState({
       pageNo
+    });
+  };
+
+  onPageSizeChange = pageSize => {
+    this.setState({
+      pageSize
     });
   };
 
