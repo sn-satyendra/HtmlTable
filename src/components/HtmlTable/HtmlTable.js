@@ -210,7 +210,7 @@ HtmlTable.propTypes = {
   /**
    * Function to be invoked when page is changed.
    */
-  onPageChage: PropTypes.func,
+  onPageChange: PropTypes.func,
 
   /**
    * Theme to be used for the HtmlTable.
