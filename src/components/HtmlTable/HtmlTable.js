@@ -1,32 +1,7 @@
 import React, {Component} from 'react';
-import styled from 'styled-components';
+import {StyledTable, StyledThead, StyledCell} from './Styles';
 import PropTypes from 'prop-types';
 import Pagination from '../Pagination/Pagination';
-
-const StyledTable = styled.table`
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-  border: 1px solid #f5f5f5;
-  font-size: 13px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen","Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  tbody tr:nth-child(2n) {
-    background: #f5f5f5;
-  }
-`;
-
-const StyledThead = styled.thead`
-  background: #f5f5f5;
-  color: #000;
-  font-weight: bold;
-`;
-
-const StyledCell = styled.td`
-  height: 1.2rem;
-  line-height: 1.2rem;
-  padding: 10px;
-  border: 1px solid #f5f5f5;
-`;
 
 class HtmlTable extends Component {
 
