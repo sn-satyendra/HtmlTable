@@ -33,6 +33,10 @@ class HtmlTable extends Component {
   constructor(props) {
     super(props);
     this.configs = this.createConfigLookup(props);
+    this.state = {
+      pageNo: props.pageNo,
+      pageSize: props.pageSize
+    };
   }
 
   createConfigLookup = props => {
@@ -61,16 +65,20 @@ class HtmlTable extends Component {
   };
 
   getPagination = () => {
-    const {total, pageNo, pageSize} = this.props;
+    const {total} = this.props;
+    let {pageNo, pageSize} = this.state;
     return <Pagination
       total={total}
       pageNo={pageNo}
       pageSize={pageSize}
+      onPageChange={this.onPageChange}
     />;
   };
 
   onPageChange = pageNo => {
-    console.log(pageNo);
+    this.setState({
+      pageNo
+    });
   };
 
   getHeader = () => {
@@ -90,8 +98,17 @@ class HtmlTable extends Component {
     );
   };
 
+  getData = () => {
+    let {pageNo, pageSize} = this.state;
+    let startIndex = pageNo <= 1 ? 0 : (pageNo - 1) * pageSize;
+    let endIndex = pageNo * pageSize;
+    const {data} = this.props;
+    return data.slice(startIndex, endIndex);
+  };
+
   getBody = () => {
-    const {columns, data} = this.props;
+    const {columns} = this.props;
+    let data = this.getData();
     const configs = this.configs;
     const rows = data.map((d, index) => {
       const cells = [];
@@ -152,7 +169,7 @@ HtmlTable.propTypes = {
   data: PropTypes.array.isRequired,
 
   /**
-   * The page which should be rendered initially.
+   * The page which should be rendered initially. This starts from 1.
    */
   pageNo: PropTypes.number,
 
@@ -162,7 +179,7 @@ HtmlTable.propTypes = {
   pageSize: PropTypes.number,
 
   /**
-   * Total number of records
+   * Total number of records.
    */
   total: PropTypes.number,
 

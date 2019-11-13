@@ -73,8 +73,8 @@ class Pagination extends PureComponent {
 
   render() {
     const {pageNo, pageSize, total} = this.props;
-    const from = pageNo * pageSize;
-    const to = (pageNo * pageSize) + pageSize;
+    const from = (pageNo <= 1 ? 0 : (pageNo - 1) * pageSize) + 1;
+    const to = pageNo * pageSize;
     return (
       <StyledContainer>
         <div>
