@@ -11,16 +11,23 @@ export const defaultView = () => <HtmlTable
   id="sid"
   columns={[{
     header: "Student Id",
-    field: 'sid'
+    field: 'sid',
+    sortable: true,
+    type: 'number'
   }, {
     header: "Name",
-    field: 'name'
+    field: 'name',
+    sortable: true,
+    type: 'string'
   }, {
     header: "Location",
-    field: 'location'
+    field: 'location',
+    sortable: true
   }, {
     header: "Phone",
     field: 'phone',
+    sortable: true,
+    type: 'number',
     cellRender: (d) => <div>{d.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
   }]}
   data={[

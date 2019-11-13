@@ -35,7 +35,10 @@ class HtmlTable extends Component {
     this.configs = this.createConfigLookup(props);
     this.state = {
       pageNo: props.pageNo,
-      pageSize: props.pageSize
+      pageSize: props.pageSize,
+      data: props.data,
+      sortOn: undefined,
+      sortDirection: undefined // ASC/DESC
     };
   }
 
@@ -88,12 +91,45 @@ class HtmlTable extends Component {
     });
   };
 
+  onSort = field => {
+    let {data, sortDirection} = this.state;
+    let config = this.configs[field];
+    data.sort((a, b) => {
+      let comparison = 0;
+      let aField = a[field];
+      let bField = b[field]
+      if (config.type === 'string') {
+        aField = aField.toLowerCase();
+        bField = bField.toLowerCase();
+      }
+
+      if (aField > bField) 
+        comparison = 1;
+      else if (aField < bField)
+        comparison = -1;
+
+      return (sortDirection && sortDirection === 'ASC') ? comparison * -1 : comparison;
+    });
+    this.setState({
+      data,
+      sortOn: field,
+      sortDirection: sortDirection && sortDirection === 'ASC' ? 'DESC' : 'ASC'
+    });
+  };
+
   getHeader = () => {
     const {columns} = this.props;
+    const {sortOn, sortDirection} = this.state;
     const cells = columns.map(c => {
-      const {header, cellRenderer, sortable, hidden} = c;
+      const {header, cellRenderer, sortable, hidden, field} = c;
       if (!hidden) {
-        return <StyledCell key={header}>{header}</StyledCell>;
+        return <StyledCell key={header} onClick={sortable ? this.onSort.bind(this, field) : undefined}>
+          {header}
+          &nbsp;
+          {sortable && field !== sortOn && <span>&#8597;</span>}
+          {sortable && sortDirection === 'ASC' && field === sortOn && <span>&#8595;</span>}
+          {sortable && sortDirection === 'DESC' && field === sortOn && <span>&#8593;</span>}
+        </StyledCell>;
       }
     });
     return (
@@ -109,7 +145,7 @@ class HtmlTable extends Component {
     let {pageNo, pageSize} = this.state;
     let startIndex = pageNo <= 1 ? 0 : (pageNo - 1) * pageSize;
     let endIndex = pageNo * pageSize;
-    const {data} = this.props;
+    let {data} = this.state;
     return data.slice(startIndex, endIndex);
   };
 
@@ -166,7 +202,8 @@ HtmlTable.propTypes = {
     cellRenderer: PropTypes.func,
     sortable: PropTypes.bool,
     hidden: PropTypes.bool,
-    field: PropTypes.string.isRequired
+    field: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['string', 'number'])
   })).isRequired,
 
   /**

@@ -140,7 +140,6 @@ class Pagination extends PureComponent {
           </StyledPageIndicator>
         </StyledNav>
       </StyledContainer>
-      
     );
   }
 }
