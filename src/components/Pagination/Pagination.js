@@ -49,7 +49,7 @@ class Pagination extends PureComponent {
     let options = [];
     let currOption = PAGE_SIZE_RANGE;
     while (currOption <= total) {
-      options.push(<option key={currOption} value={currOption}>{currOption}</option>)
+      options.push(<option key={currOption} value={currOption}>{currOption} Rows</option>)
       currOption += PAGE_SIZE_RANGE;
     }
     return options;
@@ -59,23 +59,22 @@ class Pagination extends PureComponent {
     const {pageNo, pageSize, total} = this.props;
     const from = (pageNo <= 1 ? 0 : (pageNo - 1) * pageSize) + 1;
     const to = pageNo * pageSize;
+    console.log(from, to);
     return (
-      <StyledContainer value={pageSize}>
-        <StyledPagesize onChange={this.onPageSizeChange}>
-          {this.getOptions()}
-        </StyledPagesize>
-        <StyledNav>
-          <div>
-            <StyledButton title="First" onClick={this.onFirst} disabled={from === 1 ? 'disabled' : undefined}>&lt;&lt;</StyledButton>
-            <StyledButton title="Previous" onClick={this.onPrev} disabled={from === 1 ? 'disabled' : undefined}>&lt;</StyledButton>
-            <StyledButton title="Next" onClick={this.onNext} disabled={to === total ? 'disabled' : undefined}>&gt;</StyledButton>
-            <StyledButton title="Last" onClick={this.onLast} disabled={to === total ? 'disabled' : undefined}>&gt;&gt;</StyledButton>
-          </div>
-          <StyledPageIndicator>
-            <span>{from}</span> to <span>{to}</span> of <span>{total}</span>
-          </StyledPageIndicator>
-        </StyledNav>
-      </StyledContainer>
+      <StyledNav>
+        <StyledContainer>
+          <StyledButton title="First" onClick={this.onFirst} disabled={from === 1 ? 'disabled' : undefined}>&lt;&lt;</StyledButton>
+          <StyledButton title="Previous" onClick={this.onPrev} disabled={from === 1 ? 'disabled' : undefined}>&lt;</StyledButton>
+          <StyledPagesize onChange={this.onPageSizeChange} value={pageSize}>
+            {this.getOptions()}
+          </StyledPagesize>
+          <StyledButton title="Next" onClick={this.onNext} disabled={to === total ? 'disabled' : undefined}>&gt;</StyledButton>
+          <StyledButton title="Last" onClick={this.onLast} disabled={to === total ? 'disabled' : undefined}>&gt;&gt;</StyledButton>
+        </StyledContainer>
+        <StyledPageIndicator>
+          <span>{from}</span> to <span>{to}</span> of <span>{total}</span>
+        </StyledPageIndicator>
+      </StyledNav>
     );
   }
 }

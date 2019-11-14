@@ -55,9 +55,11 @@ class HtmlTable extends Component {
   };
 
   onPageChange = pageNo => {
+    const {onPageChange} = this.props;
     this.setState({
       pageNo
     });
+    typeof onPageChange === 'function' && onPageChange({pageNo, pageSize});
   };
 
   onPageSizeChange = pageSize => {
@@ -67,6 +69,7 @@ class HtmlTable extends Component {
   };
 
   onSort = field => {
+    const {onSort} = this.props;
     let {data, sortDirection} = this.state;
     let config = this.configs[field];
     data.sort((a, b) => {
@@ -90,6 +93,7 @@ class HtmlTable extends Component {
       sortOn: field,
       sortDirection: sortDirection && sortDirection === 'ASC' ? 'DESC' : 'ASC'
     });
+    typeof onSort === 'function' && onSort({sortOn, sortDirection});
   };
 
   getHeader = () => {
@@ -178,6 +182,7 @@ HtmlTable.propTypes = {
     sortable: PropTypes.bool,
     hidden: PropTypes.bool,
     field: PropTypes.string.isRequired,
+    // TODO: Date support
     type: PropTypes.oneOf(['string', 'number'])
   })).isRequired,
 
