@@ -88,12 +88,15 @@ class HtmlTable extends Component {
 
       return (sortDirection && sortDirection === 'ASC') ? comparison * -1 : comparison;
     });
-    this.setState({
-      data,
+    const sortFields = {
       sortOn: field,
       sortDirection: sortDirection && sortDirection === 'ASC' ? 'DESC' : 'ASC'
+    };
+    this.setState({
+      ...sortFields,
+      data
     });
-    typeof onSort === 'function' && onSort({sortOn, sortDirection});
+    typeof onSort === 'function' && onSort(sortFields);
   };
 
   getHeader = () => {
@@ -143,20 +146,34 @@ class HtmlTable extends Component {
     const {columns} = this.props;
     let data = this.getData();
     const configs = this.configs;
-    const rows = data.map((d, index) => {
-      const cells = [];
-      Object.keys(d).forEach(key => {
-        let cellConfig = configs[key];
-        cells.splice(
-          cellConfig.index,
-          0,
-          <StyledCell key={`${cellConfig.index}-cell`}>
-            {this.renderDataCell(d, key)}
-          </StyledCell>
-        )
-      })
-      return <tr key={`${index}-row`}>{cells}</tr>;
-    });
+    let rows = [
+      <StyledCell 
+        key={`no-data-cell`} 
+        colSpan={`${Object.keys(configs).length}`}
+        style={{
+          textAlign: 'center'
+        }}
+      >
+        No Data available
+      </StyledCell>
+    ];
+    if (data.length > 0) {
+      rows = data.map((d, index) => {
+        const cells = [];
+        Object.keys(d).forEach(key => {
+          let cellConfig = configs[key];
+          cells.splice(
+            cellConfig.index,
+            0,
+            <StyledCell key={`${cellConfig.index}-cell`}>
+              {this.renderDataCell(d, key)}
+            </StyledCell>
+          )
+        })
+        return <tr key={`${index}-row`}>{cells}</tr>;
+      });
+    }
+    
     return (
       <tbody>
         {rows}

@@ -254,3 +254,41 @@ lightThemeNoPagination.story = {
     ]
   }
 };
+
+export const noData = () => <ThemeProvider theme={dark}>
+  <HtmlTable
+    id="sid"
+    columns={[{
+      header: "Id",
+      field: 'id',
+      sortable: true,
+      type: 'number'
+    }, {
+      header: "Name",
+      field: 'name',
+      sortable: true,
+      type: 'string'
+    }, {
+      header: "Start",
+      field: 'startDate'
+    }, {
+      header: "End",
+      field: 'endDate',
+      type: 'string'
+    }, {
+      header: "Budget",
+      field: 'budget',
+      sortable: true,
+      type: 'number'
+    }]}
+    data={[]}
+  />
+</ThemeProvider>;
+
+noData.story = {
+  parameters: { 
+    backgrounds: [
+      { name: 'dark', value: '#000', default: true }
+    ]
+  }
+};
