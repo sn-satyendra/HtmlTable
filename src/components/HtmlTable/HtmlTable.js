@@ -45,7 +45,7 @@ class HtmlTable extends Component {
   getPagination = () => {
     const {total} = this.props;
     let {pageNo, pageSize} = this.state;
-    return <Pagination
+    return total && pageNo && pageSize && <Pagination
       total={total}
       pageNo={pageNo}
       pageSize={pageSize}
@@ -127,11 +127,16 @@ class HtmlTable extends Component {
   };
 
   getData = () => {
-    let {pageNo, pageSize} = this.state;
-    let startIndex = pageNo <= 1 ? 0 : (pageNo - 1) * pageSize;
-    let endIndex = pageNo * pageSize;
-    let {data} = this.state;
-    return data.slice(startIndex, endIndex);
+    let {data, pageNo, pageSize} = this.state;
+    if (pageNo && pageSize) {
+      // Find paginated data
+      let startIndex = pageNo <= 1 ? 0 : (pageNo - 1) * pageSize;
+      let endIndex = pageNo * pageSize;
+      return data.slice(startIndex, endIndex);
+    } else {
+      // Return complete data
+      return data;
+    }
   };
 
   getBody = () => {
