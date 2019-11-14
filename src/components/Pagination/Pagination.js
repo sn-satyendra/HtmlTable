@@ -111,16 +111,7 @@ Pagination.propTypes = {
   /**
    * Function to be invoked when pageSize is changed.
    */
-  onPageSizeChange: PropTypes.func,
-
-  /**
-   * Theme to be used for the Pagination.
-   */
-  theme: PropTypes.oneOf(['light', 'dark'])
-};
-
-Pagination.defaultProps = {
-  theme: 'light'
+  onPageSizeChange: PropTypes.func
 };
 
 export default Pagination;

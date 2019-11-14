@@ -1,3 +1,4 @@
+// TODO: The palette should use better names.
 export const light = {
   primaryTextColor: '#000',
   primaryBackgroundColor: '#f5f5f5',

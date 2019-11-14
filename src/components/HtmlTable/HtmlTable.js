@@ -221,16 +221,7 @@ HtmlTable.propTypes = {
   /**
    * Function to be invoked when page is changed.
    */
-  onPageChange: PropTypes.func,
-
-  /**
-   * Theme to be used for the HtmlTable.
-   */
-  theme: PropTypes.oneOf(['light', 'dark'])
-};
-
-HtmlTable.defaultProps = {
-  theme: 'light'
+  onPageChange: PropTypes.func
 };
 
 export default HtmlTable;
