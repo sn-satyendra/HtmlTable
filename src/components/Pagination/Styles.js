@@ -16,9 +16,9 @@ export const StyledPagesize = styled.select`
   vertical-align: middle;
   cursor: pointer;
   background-image: none;
-  color: #000;
-  background-color: #f5f5f5;
-  border-color: #efefef;
+  color: ${(props) => props.theme.primaryTextColor};
+  background-color: ${(props) => props.theme.primaryBackgroundColor};
+  border-color: ${(props) => props.theme.primaryBorderColor};
   min-width: 45px;
   margin: 5px;
 `;
@@ -43,9 +43,9 @@ export const StyledButton = styled.button`
   cursor: pointer;
   user-select: none;
   background-image: none;
-  color: #000;
-  background-color: #f5f5f5;
-  border-color: #efefef;
+  color: ${(props) => props.theme.primaryTextColor};
+  background-color: ${(props) => props.theme.primaryBackgroundColor};
+  border-color: ${(props) => props.theme.primaryBorderColor};
   min-width: 45px;
   margin: 5px;
   &[disabled] {
