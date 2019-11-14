@@ -147,15 +147,17 @@ class HtmlTable extends Component {
     let data = this.getData();
     const configs = this.configs;
     let rows = [
-      <StyledCell 
-        key={`no-data-cell`} 
-        colSpan={`${Object.keys(configs).length}`}
-        style={{
-          textAlign: 'center'
-        }}
-      >
-        No Data available
-      </StyledCell>
+      <tr key={`no-data-row`}>
+        <StyledCell
+          key="no-data-cell"
+          colSpan={`${Object.keys(configs).length}`}
+          style={{
+            textAlign: 'center'
+          }}
+        >
+          No Data available
+        </StyledCell>
+      </tr>
     ];
     if (data.length > 0) {
       rows = data.map((d, index) => {
