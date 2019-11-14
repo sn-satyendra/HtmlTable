@@ -1,5 +1,6 @@
 const path = require('path');
 
+// For now only js files are configured.
 module.exports = {
 	entry: './src/index.js',
 	module: {
@@ -9,28 +10,11 @@ module.exports = {
 				use: {
 					loader: 'babel-loader',
 				},
-			},
-			{
-				test: /\.scss$/,
-				use: [
-					{ loader: 'style-loader' },
-					{ loader: 'css-loader' },
-					{ loader: 'sass-loader' },
-				],
-			},
-			{
-				test: /\.(png|gif|jpg|svg)$/,
-				use: {
-					loader: 'url-loader',
-					options: {
-						limit: 50000,
-					},
-				},
 			}
 		]
 	},
 	resolve: {
-		extensions: ['.scss', '.js', '.json', '.png', '.gif', '.jpg', '.svg']
+		extensions: ['.js']
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist/'),

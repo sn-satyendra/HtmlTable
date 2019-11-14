@@ -1,14 +1,12 @@
 {
   "name": "htmltable",
   "version": "1.0.0",
-  "description": "A simple html table component with component usage docs",
+  "description": "A simple html table component",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
-    "storybook": "start-storybook -p 9001",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "storybook": "start-storybook -p 9001"
   },
   "author": "Satyendra",
   "license": "MIT",
@@ -20,13 +18,6 @@
     "@storybook/react": "^5.2.6",
     "@tulipjs/eslint-config": "^1.1.1",
     "babel-loader": "^8.0.1",
-    "css-loader": "^3.2.0",
-    "docz": "^1.2.0",
-    "docz-theme-default": "^1.2.0",
-    "node-sass": "^4.9.3",
-    "sass-loader": "^8.0.0",
-    "style-loader": "^1.0.0",
-    "url-loader": "^2.2.0",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0"
   },
