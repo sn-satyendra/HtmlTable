@@ -72,12 +72,10 @@ export const example2 = () => <HtmlTable
     type: 'string'
   }, {
     header: "Start",
-    field: 'startDate',
-    sortable: true
+    field: 'startDate'
   }, {
     header: "End",
     field: 'endDate',
-    sortable: true,
     type: 'string'
   }, {
     header: "Budget",

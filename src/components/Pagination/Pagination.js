@@ -48,10 +48,19 @@ class Pagination extends PureComponent {
     const {pageNo, pageSize, total} = this.props;
     let options = [];
     let currOption = PAGE_SIZE_RANGE;
+    let pageSizeAvailable;
     while (currOption <= total) {
+      if (!pageSizeAvailable) {
+        pageSizeAvailable = currOption === pageSize;
+      }
       options.push(<option key={currOption} value={currOption}>{currOption} Rows</option>)
       currOption += PAGE_SIZE_RANGE;
     }
+
+    if (!pageSizeAvailable) {
+      options.unshift(<option key={pageSize} value={pageSize}>{pageSize} Rows</option>);
+    }
+    
     return options;
   };
 
@@ -59,7 +68,6 @@ class Pagination extends PureComponent {
     const {pageNo, pageSize, total} = this.props;
     const from = (pageNo <= 1 ? 0 : (pageNo - 1) * pageSize) + 1;
     const to = pageNo * pageSize;
-    console.log(from, to);
     return (
       <StyledNav>
         <StyledContainer>

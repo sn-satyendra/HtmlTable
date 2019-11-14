@@ -102,7 +102,13 @@ class HtmlTable extends Component {
     const cells = columns.map(c => {
       const {header, cellRenderer, sortable, hidden, field} = c;
       if (!hidden) {
-        return <StyledCell key={header} onClick={sortable ? this.onSort.bind(this, field) : undefined}>
+        return <StyledCell
+            key={header} 
+            onClick={sortable ? this.onSort.bind(this, field) : undefined}
+            style={{
+              cursor: sortable ? 'pointer' : 'default'
+            }}
+          >
           {header}
           &nbsp;
           {sortable && field !== sortOn && <span>&#8597;</span>}
