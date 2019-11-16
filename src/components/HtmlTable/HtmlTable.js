@@ -135,7 +135,8 @@ class HtmlTable extends Component {
 
   getData = () => {
     let {data, pageNo, pageSize} = this.state;
-    if (pageNo && pageSize) {
+    const {remote} = this.props;
+    if (pageNo && pageSize && !remote) {
       // Find paginated data
       let startIndex = pageNo <= 1 ? 0 : (pageNo - 1) * pageSize;
       let endIndex = pageNo * pageSize;
