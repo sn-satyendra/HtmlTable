@@ -69,33 +69,37 @@ class HtmlTable extends Component {
   };
 
   onSort = field => {
-    const {onSort} = this.props;
+    const {onSort, remote} = this.props;
     let {data, sortDirection} = this.state;
     let config = this.configs[field];
-    data.sort((a, b) => {
-      let comparison = 0;
-      let aField = a[field];
-      let bField = b[field]
-      if (config.type === 'string') {
-        aField = aField.toLowerCase();
-        bField = bField.toLowerCase();
-      }
-
-      if (aField > bField) 
-        comparison = 1;
-      else if (aField < bField)
-        comparison = -1;
-
-      return (sortDirection && sortDirection === 'ASC') ? comparison * -1 : comparison;
-    });
     const sortFields = {
       sortOn: field,
       sortDirection: sortDirection && sortDirection === 'ASC' ? 'DESC' : 'ASC'
     };
-    this.setState({
-      ...sortFields,
-      data
-    });
+
+    if (!remote) {
+      data.sort((a, b) => {
+        let comparison = 0;
+        let aField = a[field];
+        let bField = b[field]
+        if (config.type === 'string') {
+          aField = aField.toLowerCase();
+          bField = bField.toLowerCase();
+        }
+  
+        if (aField > bField) 
+          comparison = 1;
+        else if (aField < bField)
+          comparison = -1;
+  
+        return (sortDirection && sortDirection === 'ASC') ? comparison * -1 : comparison;
+      });
+      this.setState({
+        ...sortFields,
+        data
+      });
+    }
+    
     typeof onSort === 'function' && onSort(sortFields);
   };
 
@@ -204,15 +208,21 @@ HtmlTable.propTypes = {
   id: PropTypes.string,
 
   /**
-   * The column configuration to be used for table.
+   * The column configuration to be used for table. It has following 
+   * properties which define the behaviour of the column:
+   * header : Header text to be used for a column
+   * cellRenderer : Custom cell renderer function which can be used to
+   *                customize the cell of a column based on the value.
+   * sortable : Defines if a column is sortable or not.
+   * field: The name of the field which maps to the column.
+   * type: The type of data in each column. This would be used
+   *       in case of client side sorting of data.
    */
   columns: PropTypes.arrayOf(PropTypes.shape({
     header: PropTypes.string.isRequired,
     cellRenderer: PropTypes.func,
     sortable: PropTypes.bool,
-    hidden: PropTypes.bool,
     field: PropTypes.string.isRequired,
-    // TODO: Date support
     type: PropTypes.oneOf(['string', 'number'])
   })).isRequired,
 
@@ -236,6 +246,13 @@ HtmlTable.propTypes = {
    * Total number of records.
    */
   total: PropTypes.number,
+
+  /**
+   * Use remote api to do the table operations like pagination
+   * and sorting. The client side sort and pagination would be
+   * disabled in such cases.
+   */
+  remote: PropTypes.bool,
 
   /**
    * Function to be invoked when sorting is done.
