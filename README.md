@@ -10,7 +10,7 @@ $ yarn install
 $ yarn run storybook
 ```
 
-Navigate to [http://localhost:9001](http://localhost:9001) to view the component docs and example stories.
+Navigate to [http://localhost:3000](http://localhost:3000) to view the component docs and example stories.
 
 ## Note
 
