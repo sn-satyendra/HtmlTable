@@ -1,5 +1,5 @@
-# React Component Library 
-A simple project to create and document a react component library.
+# React component library boilerplate
+A simple boilerplate to create and document a react component library using storybook.
 
 ## Usage
 
